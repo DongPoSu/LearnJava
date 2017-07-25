@@ -40,10 +40,20 @@ public class ShadowTest {
     }
 
     public static void main(String[] args) {
-        ShadowTest.SecondLevel s = new ShadowTest.SecondLevel();
-        ShadowTest st = new ShadowTest();
-        ShadowTest.FirstLevel fl = st.new FirstLevel();
-        fl.methodInFirstLevel(23);
+        test();
+    }
+    public static int test() {
+        String s = " ";
+        try {
+            s.split(",");
+            if (s.length() ==1) {
+                throw  new Exception("d");
+            }
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }
