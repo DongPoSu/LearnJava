@@ -9,4 +9,7 @@ package learn.java.generic;
  * description :
  */
 public class Generic<T> {
+    public static void main(String[] args) {
+        System.out.println(Float.isNaN(-232.23f));
+    }
 }

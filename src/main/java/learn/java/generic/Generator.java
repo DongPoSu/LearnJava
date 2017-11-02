@@ -10,22 +10,29 @@ import java.util.Iterator;
  * create_date: 2017/07/25
  * description :
  */
-public class Generator implements Iterator<Coffee> {
+public class Generator implements Iterable<Coffee> {
+    private Coffee [] arrays = new Coffee[10];
 
-    @Override
-    public boolean hasNext() {
-        return false;
+
+    public static void main(String[] args) {
+        Generator generator = new Generator();
+        generator.forEach(o->{
+            System.out.println(o.toString());
+        });
     }
 
     @Override
-    public Coffee next() {
-        return null;
+    public Iterator<Coffee> iterator() {
+        return new Iterator<Coffee>() {
+            @Override
+            public boolean hasNext() {
+                return true;
+            }
+
+            @Override
+            public Coffee next() {
+                return new Coffee();
+            }
+        };
     }
-
-    @Override
-    public void remove() {
-
-    }
-
-
 }

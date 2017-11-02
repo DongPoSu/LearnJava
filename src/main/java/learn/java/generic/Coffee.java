@@ -20,6 +20,7 @@ public class Coffee {
     }
 
     public static Generator generator(){
+
         return new Generator(){
           public Coffee next(){
               return new Coffee();
