@@ -2,6 +2,7 @@ package learn.guava.basic;
 
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * author: suzheng
@@ -19,5 +20,8 @@ public class OptionalTest {
         System.out.println( possible.isPresent()); // returns true
         System.out.println(possible.get()); // returns 5
 //        Objects.nonNull()
+        OptionalInt optionalInt = OptionalInt.of(23);
+        optionalInt.ifPresent(System.out::println);
+        System.out.println(optionalInt.orElseGet(()-> 1));
     }
 }
