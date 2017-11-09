@@ -64,7 +64,7 @@ public class TestStream {
         users.add(new User(23,"李经理"));
         users.add(new User(15,"龙之谷"));
         Stream<User> userStream = users.stream();
-
+        Map<Integer,String> hashMap = userStream.collect(Collectors.toMap(User::getAge,User::getName));
         // 5.Map To List
         Map<Integer,String>strHashMap = new HashMap<>();
         strHashMap.put(1,"asdfas");
