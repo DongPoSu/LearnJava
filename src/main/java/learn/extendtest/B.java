@@ -13,3 +13,4 @@ public class B extends A{
 //        new A().p
     }
 }
+
