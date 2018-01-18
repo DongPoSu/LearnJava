@@ -45,6 +45,7 @@ public class TestStream {
 
     // 数据转换
     private void testConvert() {
+
         // 1. Array
         String[] strArray1 = Stream.of("A", "B", "C").toArray(String[]::new);
 
