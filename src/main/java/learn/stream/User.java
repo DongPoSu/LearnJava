@@ -5,6 +5,7 @@ package learn.stream;
  * @version v.1.0
  */
 public class User {
+
     public User(int age, String name) {
         this.age = age;
         this.name = name;
