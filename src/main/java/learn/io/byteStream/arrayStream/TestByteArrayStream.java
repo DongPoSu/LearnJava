@@ -2,6 +2,7 @@ package learn.io.byteStream.arrayStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * ByteArrayInputStream
@@ -12,11 +13,11 @@ import java.io.ByteArrayOutputStream;
  */
 public class TestByteArrayStream {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         testInputStream();
     }
 
-    private static void testInputStream() {
+    private static void testInputStream() throws IOException {
         String s = " Japan's Fujifilm Holdings is set to take over Xerox Corp in a $6.1 billion deal, combining the U.S. company into their existing joint venture to gain scale and cut costs amid declining demand for office printing.";
         ByteArrayInputStream is = new ByteArrayInputStream(s.getBytes());
         byte[] bytes = new byte[24];
@@ -34,5 +35,7 @@ public class TestByteArrayStream {
         length = is.read(bytes, 0, bytes.length);
         os.write(bytes, 0, length);
         System.out.println(os.toString());
+        is.close();
+        os.close();
     }
 }
