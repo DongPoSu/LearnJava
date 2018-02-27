@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-public class ObjectBean extends BaseObjectBean implements Serializable {
+public class ObjectBean1 extends BaseObjectBean implements Serializable {
     private static final long serialVersionUID = -5747402125297698490L;
     private String name;
 }
