@@ -15,7 +15,8 @@ public class ChannelCopy {
     public static void main(String[] args) throws IOException {
         ReadableByteChannel source = Channels.newChannel(System.in);
         WritableByteChannel dest = Channels.newChannel(System.out);
-        channelCopy(source, dest);
+//        channelCopy(source, dest);
+        channelCopy2(source,dest);
         source.close();
         dest.close();
     }
