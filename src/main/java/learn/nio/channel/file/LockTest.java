@@ -1,4 +1,4 @@
-package learn.nio.channel;
+package learn.nio.channel.file;
 
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;

@@ -1,4 +1,4 @@
-package learn.nio.channel;
+package learn.nio.channel.file;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
