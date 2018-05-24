@@ -2,8 +2,10 @@ package learn.nio.channel.socket;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.channels.WritableByteChannel;
 
 /**
  * @author suzheng
@@ -33,7 +35,9 @@ public class ChannelAccept
                 System.out.println ("Incoming connection from: "
                         + sc.socket().getRemoteSocketAddress( ));
                 buffer.rewind( );
-                sc.write (buffer);
+                sc.read (buffer);
+                buffer.flip();
+                System.out.printf(new String(buffer.array()));
                 sc.close( );
             }
         }
