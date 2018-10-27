@@ -12,8 +12,7 @@ import junit.framework.TestCase;
 import java.io.*;
 import java.util.Arrays;
 
-public abstract class XmlTestBase
-    extends TestCase
+public abstract class XmlTestBase extends TestCase
 {
     @JsonPropertyOrder({ "first", "last", "id" })
     protected static class NameBean {

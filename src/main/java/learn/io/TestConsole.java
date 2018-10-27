@@ -1,9 +1,6 @@
 package learn.io;
 
-import org.junit.Test;
-
 import java.io.Console;
-import java.util.Arrays;
 
 /**
  * author: suzheng
