@@ -2,70 +2,108 @@ package learn.thread;
 
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author suzheng
  * @version v.1.0
  */
 public class ThreadTest {
+    private ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
-    private final Object o;
+    private ReentrantLock lock = new ReentrantLock();
 
-    public ThreadTest(Object o) {
-        this.o = o;
-    }
+    private Condition condition = lock.newCondition();
 
-    public void test() {
-        synchronized (o) {
-            System.out.println("start thread-name-" + Thread.currentThread().getId());
-            for (int i = 0; i < 100; i++) {
-                System.out.println(o + "-" + i);
-            }
-            System.out.println("end thread-name-" + Thread.currentThread().getId());
-        }
-    }
-
-    public void testThis() {
-        synchronized (this) {
-            System.out.println("start thread-name-" + Thread.currentThread().getId());
-            for (int i = 0; i < 100; i++) {
-                System.out.println(o + "-" + i);
-            }
-            System.out.println("end thread-name-" + Thread.currentThread().getId());
-        }
-    }
-
-    public synchronized void testSync(){
-        System.out.println("start thread-name-" + Thread.currentThread().getId());
+    private void test() {
+        Lock readLock = readWriteLock.readLock();
         try {
-            Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+            readLock.lock();
+            System.out.println(Thread.currentThread().getName() + " 获取读锁");
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            readLock.unlock();
+            System.out.println(Thread.currentThread().getName() + " 释放读锁");
+        }
+    }
+
+    private void test1() {
+
+        Lock writeLock = readWriteLock.writeLock();
+        try {
+            writeLock.lock();
+            System.out.println(Thread.currentThread().getName() + " 获取写锁");
+
+            Thread.sleep(2000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            writeLock.unlock();
+            System.out.println(Thread.currentThread().getName() + " 释放写锁");
+        }
+    }
+
+    private void test2() {
+        try {
+            lock.lock();
+            System.out.println(Thread.currentThread().getName() + " 获取读锁");
+            condition.await();
+            System.out.println(Thread.currentThread().getName() + " 被唤醒了");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+            System.out.println(Thread.currentThread().getName() + " 释放读锁");
+        }
+    }
+
+    private void test3() {
+        try {
+
+            lock.lock();
+            System.out.println(Thread.currentThread().getName() + " 获取读锁");
+            condition.await();
+            System.out.println(Thread.currentThread().getName() + " 被唤醒了");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+            System.out.println(Thread.currentThread().getName() + " 释放读锁");
+        }
+    }
+
+    int count =0;
+    private void testCount(){
+
+        try {
+            Thread.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < 10; i++) {
-            System.out.println(o + "-" + i);
-        }
-
-        System.out.println("end thread-name-" + Thread.currentThread().getId());
+        System.out.println(Thread.currentThread().getName()+":"+count+"："+ (++count));
     }
 
-    public synchronized static void testStaticSync(){
-        new ThreadTest("s1-static-").testSync();
-        System.out.println("start thread-name-" + Thread.currentThread().getId());
-        for (int i = 0; i < 10; i++) {
-            System.out.println( "static-" + i);
-        }
-        System.out.println("end thread-name-" + Thread.currentThread().getId());
+    public static void main(String[] args) throws InterruptedException {
+        ThreadTest threadTest = new ThreadTest();
+        Thread t0 = new Thread(()->{
+            for (int i = 0; i < 2000; i++) {
+             threadTest.testCount();
 
+            }
+        });
+        Thread t1 = new Thread(()->{
+            for (int i = 0; i < 2000; i++) {
+                threadTest.testCount();
+            }
+        });
+
+        t0.start();
+        t1.start();
     }
-
-    public static void main(String[] args) {
-        final String s1 = "s1";
-        final String s2 = "s2";
-
-        new Thread(() ->  new ThreadTest(s1).testSync()).start();
-
-        new Thread(() -> testStaticSync()).start();
-    }
-
 }
